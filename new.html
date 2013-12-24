@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html ng-app="newPageApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>My eBay</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-route.min.js"></script>
+<style type="text/css">
+body {
+	background: url("http://p.ebaystatic.com/aw/pics/cmp/ds3/imgbg.jpg")
+		repeat scroll 0 0 #F8F8F8;
+	font-size: 13px;
+	font-family: Arial;
+	margin: 0px auto;
+}
+
+body a {
+	color: #09f;
+	font-family: Arial;
+	text-decoration: none;
+}
+
+body a:hover {
+	text-decoration: underline;
+}
+
+.clr {
+	clear: both;
+	font-size: 0px;
+	height: 0px;
+}
+
+.footer {
+	background: #fff;
+	border-top: 1px solid #ccc;
+	padding: 20px 0 50px 0;
+	color: #999;
+	width: 100%;
+	margin: 30px 0 0;
+	font-size: 12px;
+}
+
+.footer .links {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.footer .links span {
+	margin: 0 10px 0 0;
+}
+
+.gh {
+	width: 100%;
+}
+
+.gh .bar {
+	box-shadow: 1px 3px 4px 0 rgba(0, 0, 0, 0.15);
+	border-bottom: 1px solid #ccc;
+	background: #fff;
+	padding: 10px 0px;
+	position: relative;
+	z-index: 10px;
+}
+
+.gh .bar .links {
+	width: 1200px;
+	margin: 0 auto;
+}
+.gh .bar .links a{
+	color: #333;
+}
+
+.gh .bar .links .pipe {
+	border-left: 1px solid #ccc;
+	margin: 0 10px;
+}
+
+.gh .icons {
+	float: right;
+	position: relative;
+}
+
+.gh .notification {
+	background:
+		url("http://p.ebaystatic.com/aw/pics/globalheader/spr11.png")
+		no-repeat scroll -126px -69px rgba(0, 0, 0, 0);
+	display: block;
+	font-size: 0;
+	height: 18px;
+	overflow: hidden;
+	text-indent: -9999px;
+	width: 16px;
+	position: absolute;
+	right: 85px;
+	top: 0px;
+}
+
+.gh .cart {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 0 0 0 25px;
+}
+
+.gh .cart i {
+	background:
+		url("http://p.ebaystatic.com/aw/pics/globalheader/spr11.png")
+		no-repeat scroll -31px -72px rgba(0, 0, 0, 0);
+	height: 16px;
+	width: 20px;
+	position: absolute;
+	left: 0px;
+}
+
+.gh .search-box,.gh .ads {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.new-nav {
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.new-nav .bar {
+	border: 1px solid #ccc;
+	overflow: hidden;
+	height: 136px;
+}
+
+.new-nav .avatar {
+	width: 146px;
+	height: 136px;
+	float: left;
+	text-align: center;
+	overflow: hidden;
+	position:relative;
+}
+
+.new-nav .avatar img {
+	max-width: 146px;
+}
+
+.new-nav .avatar .view-profile{
+	position: absolute;
+	border:1px solid #ccc;
+	display:block;
+	padding:5px 10px;
+	background:#fff;
+	text-decoration:none;
+	border-radius:2px;
+	bottom:10px;
+	left: 17px;
+	display: none;
+}
+
+.new-nav .avatar:hover .view-profile{
+	display: block;
+}
+
+.new-nav .menu {
+	margin: 0 0 0 146px;
+	list-style: none;
+	padding: 0px;
+	position: relative;
+}
+
+.new-nav .menu-item {
+	
+}
+
+.new-nav .menu-item a.item {
+	text-decoration: none;
+	background: #fff;
+	height: 34px;
+	line-height: 33px;
+	padding: 0 10px;
+	display: block;
+	font-size: 16px;
+	width: 130px;
+	border-bottom: 1px solid #ccc;
+}
+
+.new-nav .menu-item a.item:hover,.new-nav .menu-item.selected a.item,.new-nav .cube-tab .tab:hover,.new-nav .cube-tab .tab.selected
+	{
+	color: #666;
+	background: #ddd;
+}
+
+.new-nav .menu .sub-menu {
+	display: none;
+	position: absolute;
+	left: 150px;
+	top: 0px;
+	width: 902px;
+}
+
+.new-nav .menu-item.selected .sub-menu {
+	display: block;
+	z-index: 10;
+}
+
+.new-nav .cube-tab {
+	list-style: none;
+	padding: 0px;
+	marign: 0px;
+	height: 136px;
+}
+
+.new-nav .cube-tab .tab {
+	float: left;
+	width: 25%;
+	height: 100%;
+	position: relative;
+	cursor: pointer;
+	color: #09f;
+}
+
+.new-nav .cube-tab .title {
+	font-size: 20px;
+	font-weight: 400;
+	text-align: center;
+	line-height: 45px;
+}
+
+.new-nav .cube-tab .title.small {
+	font-size: 14px;
+}
+
+.new-nav .cube-tab .count {
+	font-size: 72px;
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	border-left: 1px solid #ccc;
+	position: absolute;
+	line-height: 150px;
+}
+
+.new-nav .cube-tab .banners {
+	color: #fff;
+	width: 100%;
+	height: 23px;
+	line-height: 23px;
+	position: absolute;
+	bottom: 0px;
+}
+
+.new-nav .cube-tab .banner {
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+}
+
+.new-nav .cube-tab .banner.whole {
+	display: block;
+}
+
+.new-nav .cube-tab .banner.left {
+	display: inline-block;
+	width: 50%;
+	float: left;
+}
+
+.new-nav .cube-tab .banner.right {
+	display: inline-block;
+	width: 50%;
+	float: left;
+}
+
+.new-nav .cube-tab .orange {
+	background: #ff9f0f;
+}
+
+.new-nav .cube-tab .red {
+	background: #ff0f0f;
+}
+
+.new-nav .cube-tab .green {
+	background: #0f9f0f;
+}
+
+.new-nav .links{
+    color: #666666;
+    float: right;
+    margin: 40px 0 0;
+}
+
+.new-nav .links a{
+	margin: 0 5px;
+}
+
+.new-nav h1 {
+	float: left;
+}
+
+.anwsers {
+	width: 1200px;
+	margin: 20px auto 0;
+	height: 600px;
+	text-align: center;
+	background:
+		url(http://ir.ebaystatic.com/f/ai3kgqo5gi5kplh4hsuwjgyeaug.png) 0 0;
+	position: relative;
+}
+
+.anwsers .mask {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	opacity: .8;
+}
+
+.anwsers .code {
+	font-size: 24px;
+	font-weight: bold;
+	padding: 60px 0 0;
+    position: relative;
+    color: #333;
+}
+.anwsers .code span{
+	color: #f60;
+}
+.containers{
+	width:1200px;
+	margin: 0 auto;
+}
+.container {
+}
+
+.container .title{
+	font-size: 16px;
+	font-weight:bold;
+	margin: 20px 0 10px 0;
+}
+.gh .links a.note-number {
+	position:absolute;
+	width:15px;
+	height:15px;
+	line-height:15px;
+	color:#fff;
+	text-decoration:none;
+	background: #f60;
+	border-radius:2px;
+	text-align:center;
+	right: 65px;
+	top:2px;
+}
+
+.myebay{
+	position:absolute;
+	right: 115px;
+	top:2px;
+	white-space:nowrap;
+}
+</style>
+</head>
+<body ng-controller="NavCtrl">
+	<div class="gh">
+		<div class="bar">
+			<div class="links">
+				Hi, 
+				<a href="javascript:alert('The anwser code is J5H');;">Happy User</a><span class="pipe"></span>
+				<a href="javascript:alert('The anwser code is 9T8');;">Daily Deals</a><span class="pipe"></span>
+				<a href="javascript:alert('The anwser code is E4R');;">Sell</a><span class="pipe"></span>
+				<a href="javascript:alert('The anwser code is TR9');;">Customer Support</a>
+				<div class="icons">
+					<a class="myebay" href="javascript:alert('The anwser code is Q3W');">My eBay</a>
+					<span class="notification"></span>
+					<a class="note-number" href="javascript:alert('The anwser code is T0K');">3</a>
+					<a href="javascript:alert('The anwser code is K8J');;" class="cart"><i></i>Cart</a>
+				</div>
+			</div>
+		</div>
+		<div class="search-box"><img src="http://ir.ebaystatic.com/f/l2uwmcg2pqz1thdbqghieqcjuu3.png" /></div>
+		<div class="ads"><img src="http://ir.ebaystatic.com/f/ge5ayei1ie33xmbzoxnvic5ulmn.png" /></div>
+	</div>
+	<div class="new-nav">
+		<div class="links">
+			<a href="javascript:alert('The anwser code is QW3');">eBay Bucks balance: $2.75</a>|<a href="javascript:alert('The anwser code is LL4');">Recent activity</a>|<a href="javascript:alert('The anwser code is 3W4');">My account</a>
+		</div>
+		<h1>My eBay</h1>
+		<div class="clr"></div>
+		<div class="bar">
+			<div class="avatar">
+				<img src="http://iweb/prod/UED/Projects/BEUED/Team/RobMetzgar/MyEbay/Prototype/images/my_ebay/u1814.jpg" />
+				<a href="javascript:alert('The anwser code is QVM');" class="view-profile">View your profile</a>
+			</div>
+			<ul class="menu">
+				<li class="menu-item" ng-class="{selected: page=='buying'}">
+					<a href="javascript:;" class="item" data-hash="/buying/watch">Buying</a>
+					<div class="sub-menu">
+						<ul class="cube-tab">
+							<li class="tab" ng-class="{selected: type=='watch'}" data-hash="/buying/watch">
+								<div class="title">WATCH LIST</div>
+								<div class="count">34</div>
+								<div class="banners">
+									<a href="#/buying/watch/ending_soon" class="banner orange whole">1 ending soon</a>
+								</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='bid'}" data-hash="/buying/bid">
+								<div class="title">BIDS</div>
+								<div class="count">2</div>
+								<div class="banners">
+									<a href="#/buying/bid/outbid" class="banner red left">1 outbid</a>
+									<a href="#/buying/bid/winning" class="banner green right">1 winning</a>
+								</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='offer'}" data-hash="/buying/offer">
+								<div class="title">OFFERS</div>
+								<div class="count">2</div>
+								<div class="banners">
+								</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='purchase'}" data-hash="/buying/purchase">
+								<div class="title">PURCHASES</div>
+								<div class="count">1</div>
+								<div class="banners">
+									<a href="#/buying/purchase/unpaid" class="banner red left">1 unpaid</a>
+									<a href="#/buying/purchase/bopen" class="banner orange right">1 case</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="menu-item" ng-class="{selected: page=='selling'}">
+					<a href="javascript:;" class="item" data-hash="/selling/active">Selling</a>
+					<div class="sub-menu">
+						<ul class="cube-tab">
+							<li class="tab" ng-class="{selected: type=='active'}" data-hash="/selling/active">
+								<div class="title">ACTIVE</div>
+								<div class="count">1</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='schedule'}" data-hash="/selling/schedule">
+								<div class="title">SCHEDULED</div>
+								<div class="count">0</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='sold'}" data-hash="/selling/sold">
+								<div class="title">SOLD</div>
+								<div class="count">1</div>
+								<div class="banners">
+									<a href="#/selling/sold/sopen" class="banner orange whole">1 to ship</a>
+								</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='unsold'}" data-hash="/selling/unsold">
+								<div class="title">UNSOLD</div>
+								<div class="count">0</div>
+							</li>
+						</ul>					
+					</div>
+				</li>
+				<li class="menu-item" ng-class="{selected: page=='message'}">
+					<a href="javascript:;" class="item" data-hash="/message/inbox">Messages</a>
+					<div class="sub-menu">
+						<ul class="cube-tab">
+							<li class="tab" ng-class="{selected: type=='inbox'}" data-hash="/message/inbox">
+								<div class="title">INBOX</div>
+								<div class="count">1</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='sent'}" data-hash="/message/sent">
+								<div class="title">SENT</div>
+								<div class="count">2</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='archive'}" data-hash="/message/archive">
+								<div class="title">ARCHIVE</div>
+								<div class="count">1</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='trash'}" data-hash="/message/trash">
+								<div class="title">TRASH</div>
+								<div class="count">1</div>
+							</li>
+						</ul>					
+					</div>
+				</li>
+				<li class="menu-item" ng-class="{selected: page=='profile'}">
+					<a href="javascript:;" class="item" data-hash="/profile/collection">Profile</a>
+					<div class="sub-menu">
+						<ul class="cube-tab">
+							<li class="tab" ng-class="{selected: type=='collection'}" data-hash="/profile/collection">
+								<div class="title small">MY COLLECTIONS</div>
+								<div class="count">6</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='interest'}" data-hash="/profile/interest">
+								<div class="title small">FOLLOWED INTERESTS</div>
+								<div class="count">13</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='fseller'}" data-hash="/profile/fseller">
+								<div class="title small">FOLLOWED MEMBERS</div>
+								<div class="count">44</div>
+							</li>
+							<li class="tab" ng-class="{selected: type=='fcollection'}" data-hash="/profile/fcollection">
+								<div class="title small">FOLLOWED COLLECTIONS</div>
+								<div class="count">0</div>
+							</li>
+						</ul>						
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="containers">
+		<div class="container" ng-repeat="container in containers">
+			<div class="title">{{container.title}}</div>
+			<div class="anwsers" style="background:url({{container.mock}}) 0 0 no-repeat;height:{{container.height}}px">
+				<div class="mask"></div>
+				<div class="code">The anwser code is <span>{{container.code}}</span></div>
+			</div>
+		</div>
+	</div>
+	<!-- 
+	<div class="footer">
+		<div class="links">
+			<span>Community</span>
+			<span>About eBay</span>
+			<span>Announcements</span>
+			<span>Security Center</span>
+			<span>Resolution Center</span>
+			<span>Seller Information Center</span>
+			<span>Policies</span>
+			<span>Site Map</span>
+			<span>eBay official time</span>
+			<span>Preview new features</span>
+			<span>Contact us</span>
+			<span>eBay Talk</span>
+			<br/><br/>
+			<span>Tell us what you think</span>
+		</div>
+	</div>
+	 -->
+<script>
+var newPageApp = angular.module('newPageApp', []);
+var getNavInfo = function(){
+	var hash = document.location.hash + '', parts = hash.split('/');
+	if(parts.length > 2){
+		return {
+			page : parts[1],
+			type : parts[2],
+			status: parts[3]
+		};
+	}
+};
+var config = {
+	'buying.watch,bid,offer,purchase': 'All buying items',
+	'buying.watch': 'Watch list',
+	'buying.watch.ending_soon': 'Watch list: Ending soon items',
+	'buying.bid': 'Bids',
+	'buying.bid.outbid': 'Bids: Outbid items',
+	'buying.bid.winning': 'Bids: Winning items',
+	'buying.offer': "Offers",
+	'buying.purchase': 'Purchase History',
+	'buying.purchase.unpaid': 'Purchase History: Unpaid items',
+	'buying.purchase.bopen': 'Purchase History: Open items',
+	
+	'selling.active': 'Active',
+	'selling.schedule': 'Scheduled',
+	'selling.sold': 'Sold',
+	'selling.sold.sopen': 'Sold: Open items',
+	'selling.unsold': 'Unsold',
+	
+	'messages.inbox': 'Inbox',
+	'messages.sent': 'Sent',
+	'messages.archive': 'Archive',
+	'messages.deleted': 'Deleted messages',
+	
+	'profile.collection': 'My collections',
+	'profile.interest': 'Followed interests',
+	'profile.fseller': 'Followed sellers',
+	'profile.fcollection': 'Followed collections'
+};
+
+var containerTitle = {
+	'bid': ['Bids', 'Y57', '460', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'bid.outbid': ['Bids: Outbid items', 'P8O', '220', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'bid.winning': ['Bids: Winning items', '13W', '172', 'http://ir.ebaystatic.com/f/djpdao5yky4mxax0wrseymgsl2h.png'],
+	'offer': ['Offer', 'NF4', '460', 'http://ir.ebaystatic.com/f/wjt5rwk1tu42va1mkp1ezp101mp.png'],
+	'not-win': ["Didn't win", '7OU', '220', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'deleted': ["Deleted", 'QC5', '220', 'http://ir.ebaystatic.com/f/kp0bgsgdna2ctbgf4dlu5lgsvqi.png'],
+	'purchase': ['Purchase History', 'M6I', '375', 'http://ir.ebaystatic.com/f/djpdao5yky4mxax0wrseymgsl2h.png'],
+	'purchase.unpaid': ['Purchase History: Unpaid items', 'N5K', '172', 'http://ir.ebaystatic.com/f/djpdao5yky4mxax0wrseymgsl2h.png'],
+	'purchase.bopen': ['Purchase History: Open items', 'KI9', '220', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'watch': ['Watch list', 'B4U', '460', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'watch.ending_soon': ['Watch list: Ending soon items', 'V5V', '172', 'http://ir.ebaystatic.com/f/djpdao5yky4mxax0wrseymgsl2h.png'],
+	'wish': ['Wish list', 'N2Q', '220', 'http://ir.ebaystatic.com/f/kp0bgsgdna2ctbgf4dlu5lgsvqi.png'],
+	'your': ['Your list', 'F4U', '460', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'search-follow': ['Searches you follow', 'K0A', '357', 'http://ir.ebaystatic.com/f/pjzhyqlu420srb1440bcus22qqy.png'],
+	'seller-follow': ['Sellers you follow', 'V43', '251', 'http://ir.ebaystatic.com/f/mcxszt2iaeyolnaawnkqbffri2u.png'],
+	'sell-item': ['Sell an item', 'SXQ'],
+	'schedule': ['Scheduled', 'QP1', '460', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'active': ['Active', 'R34', '220', 'http://ir.ebaystatic.com/f/gygfnqehiqzktftiisf5xos5x23.png'],
+	'sold': ['Sold', 'N0Q', '440', 'http://ir.ebaystatic.com/f/wjt5rwk1tu42va1mkp1ezp101mp.png'],
+	'sold.sopen': ['Sold: Open items', 'F6A', '220', 'http://ir.ebaystatic.com/f/wjt5rwk1tu42va1mkp1ezp101mp.png'],
+	'unsold': ['Unsold', 'CVQ', '375', 'http://ir.ebaystatic.com/f/djpdao5yky4mxax0wrseymgsl2h.png'],
+	'shipping-label': ['Shipping labels', '4VB', '480', 'http://ir.ebaystatic.com/f/k4ewnocu2221flc5xy4ys2qbzuk.png'],
+	'returns': ['Returns', 'B13', '220', 'http://ir.ebaystatic.com/f/wjt5rwk1tu42va1mkp1ezp101mp.png'],
+	'sell-deleted': ['Deleted', 'QQ1', '220', 'http://ir.ebaystatic.com/f/kp0bgsgdna2ctbgf4dlu5lgsvqi.png'],
+	'all': ['All messages', 'IU8', '393', 'http://ir.ebaystatic.com/f/haz4fs2qpm0lzlzmhsrrqxuyqmr.png'],
+	'inbox': ['Inbox', '12W', '274', 'http://ir.ebaystatic.com/f/upnvcaqrxq4uffeecuiwsct2ryr.png'],
+	'sent': ['Sent', 'VB1', '393', 'http://ir.ebaystatic.com/f/haz4fs2qpm0lzlzmhsrrqxuyqmr.png'],
+	'archive': ['Archive', 'DQ0', '337', 'http://ir.ebaystatic.com/f/vsu1xsr15u2wfoapj2yy1kfpuu2.png'],
+	'trash': ['Trash', 'K01', '274', 'http://ir.ebaystatic.com/f/upnvcaqrxq4uffeecuiwsct2ryr.png'],
+	'collection': ['My collections', 'Z2Q', '580', 'http://ir.ebaystatic.com/f/anisg00mgm4oxdu1oankk5iqtam.png'],
+	'interest': ['Followed interests', 'WE3', '767', 'http://ir.ebaystatic.com/f/m4cc5mlah25szkobd3hyuxnulyj.png'],
+	'fseller': ['Followed sellers', 'K80', '657', 'http://ir.ebaystatic.com/f/gluoz4c5ya0gxd4npxrmsoz5pe5.png'],
+	'fcollection': ['Followed collections', 'P2S', '563', 'http://ir.ebaystatic.com/f/edwxk5a3tayuxjnjdnewh41rzeh.png']
+};
+
+$(document).on('ready', function() {
+	$('.tab .banner').on('click', function(event){
+		event.stopPropagation();
+	});
+});
+newPageApp.controller('NavCtrl', function ($scope) {
+	$scope.type='watch';
+	$scope.page='buying';
+	
+	$(document).on('ready', function() {
+		$('*[data-hash]').on('click', function(){
+			var hash = $(this).data('hash');
+			document.location.hash = hash;
+		});
+		
+		var updateScope = function(){
+			$scope.$apply(function(){
+				var navInfo = getNavInfo();
+				$scope.page = navInfo.page;
+				$scope.type = navInfo.type;
+				$scope.status = navInfo.status;
+				
+				var containers = [], types = navInfo.type.split(","), len = types.length, i = 0;
+				for (; i < len; i++) {
+					var container = {}, type = types[i]; 
+					if(navInfo.status){
+						type += "." + navInfo.status;
+					}
+					container.title = containerTitle[type][0];
+					container.code = containerTitle[type][1];
+					container.height = containerTitle[type][2];
+					container.mock = containerTitle[type][3];
+					containers.push(container);
+				}
+				$scope.containers = containers;
+			});
+		};
+		updateScope();
+		$(window).on('hashchange', function(){
+			updateScope();
+		});
+		
+	});
+	
+});
+$('.search-box, .ads').on('click', function(){
+	alert("For the purpose of this study, this section isn’t available. Please close this window and look for another way to accomplish this task.");
+});
+</script>
+</body>
+</html>
