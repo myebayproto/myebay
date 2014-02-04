@@ -308,6 +308,43 @@ body a:hover {
 	top:2px;
 	white-space:nowrap;
 }
+
+#anwserBox{
+	background: #efefef;
+    border: 1px solid #ccc;
+    display: none;
+    height: 150px;
+    width: 200px;
+    box-shadow: 3px 5px 5px #ccc;
+    position: absolute;
+    z-index: 20000;
+    text-align:center;
+    border-radius: 3px;
+}
+#anwserBox b{
+	font-size: 24px;
+    font-weight: bold;
+    color: #f60;
+}
+#anwserBox h3{
+	margin: 50px 0 0;
+}
+#anwserBox span{
+    background: #E22020;
+    border-radius: 23px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: verdana;
+    font-size: 17px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 18px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="http://ir.ebaystatic.com/f/1c43mjxmxa3elljwmuz0za2l3qy.js"></script>
 </head>
@@ -316,15 +353,15 @@ body a:hover {
 		<div class="bar">
 			<div class="links">
 				Hi, 
-				<a href="javascript:alert('The anwser code is 3TG');">Happy User</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is 4GH');">Daily Deals</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is S3D');">Sell</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is V3B');">Customer Support</a>
+				<a href="javascript:dialog.alert('3TG');">Happy User</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('4GH');">Daily Deals</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('S3D');">Sell</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('V3B');">Customer Support</a>
 				<div class="icons">
-					<a class="myebay" href="javascript:alert('The anwser code is M2V');">My eBay</a>
+					<a class="myebay" href="javascript:dialog.alert('M2V');">My eBay</a>
 					<span class="notification"></span>
-					<a class="note-number" href="javascript:alert('The anwser code is TR6');">3</a>
-					<a href="javascript:alert('The anwser code is B79');" class="cart"><i></i>Cart</a>
+					<a class="note-number" href="javascript:dialog.alert('TR6');">3</a>
+					<a href="javascript:dialog.alert('B79');" class="cart"><i></i>Cart</a>
 				</div>
 			</div>
 		</div>
@@ -333,14 +370,14 @@ body a:hover {
 	</div>
 	<div class="page-title">
 		<h1>My eBay: {{pageTitle}}</h1>
-		<a href="javascript:alert('The anwser code is E72');">happy_user</a>
-		<span class="mbg-l">( <a href="javascript:alert('The anwser code is LK2');" title="Feedback Score Of 90" class="mbg-fb">90</a><img height="25" width="25" alt="Blue star icon for feedback score in between 50 to 99" title="Blue star icon for feedback score in between 50 to 99" class="mbg-star" src="http://p.qa.ebaystatic.com/aw/pics/icon/iconBlueStar_25x25.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) </span>
+		<a href="javascript:dialog.alert('E72');">happy_user</a>
+		<span class="mbg-l">( <a href="javascript:dialog.alert('LK2');" title="Feedback Score Of 90" class="mbg-fb">90</a><img height="25" width="25" alt="Blue star icon for feedback score in between 50 to 99" title="Blue star icon for feedback score in between 50 to 99" class="mbg-star" src="http://p.qa.ebaystatic.com/aw/pics/icon/iconBlueStar_25x25.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) </span>
 	</div>
 	<div class="htab">
 		<a href="#/items/watch,bid,offer,purchase" class="tab" ng-class="{'selected': page=='items'}">Activity</a>
 		<a href="#/messages/all" class="tab" ng-class="{'selected': page=='messages'}">Messages</a>
-		<a href="javascript:alert('The anwser code is RT3');" class="tab">Account</a>
-		<a href="javascript:alert('The anwser code is 32E');" class="tab">Applications</a>
+		<a href="javascript:dialog.alert('RT3');" class="tab">Account</a>
+		<a href="javascript:dialog.alert('32E');" class="tab">Applications</a>
 	</div>
 	<div class="main">
 		<div id="item-nav" class="vtab">
@@ -438,13 +475,13 @@ body a:hover {
 					</ul>
 				</li>
 				<li>
-					<a class="vmenu-item" href="javascript:alert('The anwser code is AS2');">Sent</a>
+					<a class="vmenu-item" href="javascript:dialog.alert('AS2');">Sent</a>
 				</li>
 				<li>
-					<a class="vmenu-item" href="javascript:alert('The anwser code is IY3');">Trash</a>
+					<a class="vmenu-item" href="javascript:dialog.alert('IY3');">Trash</a>
 				</li>
 				<li>
-					<a class="vmenu-item" href="javascript:alert('The anwser code is J2K');">Archive</a>
+					<a class="vmenu-item" href="javascript:dialog.alert('J2K');">Archive</a>
 				</li>		
 			</ul>
 		</div>
@@ -590,6 +627,24 @@ oldPageApp.controller('NavCtrl', function ($scope) {
 $('.search-box, .ads').on('click', function(){
 	alert("For the purpose of this study, this section isn’t available. Please close this window and look for another way to accomplish this task.");
 });
+
+var dialog = {};
+dialog.box = $("<div id='anwserBox'><span>X</span><h3>The anwser code is</h3><b></b></div>");
+dialog.box.on('click', 'span', function(){
+	dialog.box.css({
+		display: 'none'
+	});
+})
+dialog.alert = function(anwser){
+	var $win = $(window), winH = $win.height(), winW = $win.width(), top = (winH - 150)/2, left = (winW - 200)/2; 
+	$('body').append(dialog.box);
+	dialog.box.find('b').text(anwser);
+	dialog.box.css({
+		display: 'block',
+		top: top,
+		left: left
+	});
+};
 </script>	
 </body>
 </html>

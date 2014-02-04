@@ -361,6 +361,43 @@ body a:hover {
 	top:2px;
 	white-space:nowrap;
 }
+
+#anwserBox{
+	background: #efefef;
+    border: 1px solid #ccc;
+    display: none;
+    height: 150px;
+    width: 200px;
+    box-shadow: 3px 5px 5px #ccc;
+    position: absolute;
+    z-index: 20000;
+    text-align:center;
+    border-radius: 3px;
+}
+#anwserBox b{
+	font-size: 24px;
+    font-weight: bold;
+    color: #f60;
+}
+#anwserBox h3{
+	margin: 50px 0 0;
+}
+#anwserBox span{
+    background: #E22020;
+    border-radius: 23px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: verdana;
+    font-size: 17px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 18px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="http://ir.ebaystatic.com/f/1c43mjxmxa3elljwmuz0za2l3qy.js"></script>
 </head>
@@ -369,15 +406,15 @@ body a:hover {
 		<div class="bar">
 			<div class="links">
 				Hi, 
-				<a href="javascript:alert('The anwser code is J5H');;">Happy User</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is 9T8');;">Daily Deals</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is E4R');;">Sell</a><span class="pipe"></span>
-				<a href="javascript:alert('The anwser code is TR9');;">Customer Support</a>
+				<a href="javascript:dialog.alert('J5H');">Happy User</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('9T8');">Daily Deals</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('E4R');">Sell</a><span class="pipe"></span>
+				<a href="javascript:dialog.alert('TR9');">Customer Support</a>
 				<div class="icons">
-					<a class="myebay" href="javascript:alert('The anwser code is Q3W');">My eBay</a>
+					<a class="myebay" href="javascript:dialog.alert('Q3W');">My eBay</a>
 					<span class="notification"></span>
-					<a class="note-number" href="javascript:alert('The anwser code is T0K');">3</a>
-					<a href="javascript:alert('The anwser code is K8J');;" class="cart"><i></i>Cart</a>
+					<a class="note-number" href="javascript:dialog.alert('T0K');">3</a>
+					<a href="javascript:dialog.alert('K8J');;" class="cart"><i></i>Cart</a>
 				</div>
 			</div>
 		</div>
@@ -386,14 +423,14 @@ body a:hover {
 	</div>
 	<div class="new-nav">
 		<div class="links">
-			<a href="javascript:alert('The anwser code is QW3');">eBay Bucks balance: $2.75</a>|<a href="javascript:alert('The anwser code is LL4');">Recent activity</a>|<a href="javascript:alert('The anwser code is 3W4');">My account</a>
+			<a href="javascript:dialog.alert('QW3');">eBay Bucks balance: $2.75</a>|<a href="javascript:dialog.alert('LL4');">Recent activity</a>|<a href="javascript:dialog.alert('3W4');">My account</a>
 		</div>
 		<h1>My eBay</h1>
 		<div class="clr"></div>
 		<div class="bar">
 			<div class="avatar">
 				<img src="http://iweb/prod/UED/Projects/BEUED/Team/RobMetzgar/MyEbay/Prototype/images/my_ebay/u1814.jpg" />
-				<a href="javascript:alert('The anwser code is QVM');" class="view-profile">View your profile</a>
+				<a href="javascript:dialog.alert('QVM');" class="view-profile">View your profile</a>
 			</div>
 			<ul class="menu">
 				<li class="menu-item" ng-class="{selected: page=='buying'}">
@@ -512,7 +549,7 @@ body a:hover {
 			<div class="title">{{container.title}}</div>
 			<div class="anwsers" style="background:url({{container.mock}}) 0 0 no-repeat;height:{{container.height}}px">
 				<div class="mask"></div>
-				<div class="code">The anwser code is <span>{{container.code}}</span></div>
+				<div class="code"><span>{{container.code}}</span></div>
 			</div>
 		</div>
 	</div>
@@ -661,6 +698,24 @@ newPageApp.controller('NavCtrl', function ($scope) {
 $('.search-box, .ads').on('click', function(){
 	alert("For the purpose of this study, this section isn’t available. Please close this window and look for another way to accomplish this task.");
 });
+
+var dialog = {};
+dialog.box = $("<div id='anwserBox'><span>X</span><h3>The anwser code is</h3><b></b></div>");
+dialog.box.on('click', 'span', function(){
+	dialog.box.css({
+		display: 'none'
+	});
+})
+dialog.alert = function(anwser){
+	var $win = $(window), winH = $win.height(), winW = $win.width(), top = (winH - 150)/2, left = (winW - 200)/2; 
+	$('body').append(dialog.box);
+	dialog.box.find('b').text(anwser);
+	dialog.box.css({
+		display: 'block',
+		top: top,
+		left: left
+	});
+};
 </script>
 </body>
 </html>
